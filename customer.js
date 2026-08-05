@@ -1,37 +1,41 @@
 // ============================================================
-// CUSTOMER APP LOGIC
+// CUSTOMER APP LOGIC (Premium)
 // ============================================================
 
 let qty = 1;
 let currentMenu = { name: "आज की थाली", description: "दाल, सब्ज़ी, चावल, रोटी और अचार", price: 49, available: true };
 
+// Toast Notification System
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
 function updateTotal() {
   document.getElementById("qtyValue").textContent = qty;
-  document.getElementById("totalValue").textContent = `₹${qty * currentMenu.price}`;
+  // Animate the price change slightly
+  const totalEl = document.getElementById("totalValue");
+  totalEl.style.transform = "scale(1.1)";
+  totalEl.textContent = `₹${qty * currentMenu.price}`;
+  setTimeout(() => totalEl.style.transform = "scale(1)", 200);
 }
 
 document.getElementById("qtyMinus").addEventListener("click", () => {
-  if (qty > 1) qty--;
-  updateTotal();
+  if (qty > 1) { qty--; updateTotal(); }
 });
 document.getElementById("qtyPlus").addEventListener("click", () => {
-  if (qty < 10) qty++;
-  updateTotal();
+  if (qty < 10) { qty++; updateTotal(); }
+  else { showToast("एक बार में अधिकतम 10 थाली आर्डर कर सकते हैं!"); }
 });
-
-// ---------------- LOAD TODAY'S MENU ----------------
 
 async function loadMenu() {
   try {
     const doc = await db.collection("menu").doc("today").get();
     if (doc.exists) {
       const d = doc.data();
-      currentMenu = {
-        name: d.name || currentMenu.name,
-        description: d.description || currentMenu.description,
-        price: d.price || 49,
-        available: d.available !== false
-      };
+      currentMenu = { ...currentMenu, ...d };
     }
   } catch (e) {
     console.error("Menu load error:", e);
@@ -49,23 +53,20 @@ async function loadMenu() {
 }
 loadMenu();
 
-// ---------------- PLACE ORDER ----------------
-
 document.getElementById("placeOrderBtn").addEventListener("click", async () => {
   const name = document.getElementById("custName").value.trim();
   const phone = document.getElementById("custPhone").value.trim();
   const address = document.getElementById("custAddress").value.trim();
   const note = document.getElementById("custNote").value.trim();
-  const errEl = document.getElementById("orderError");
-  errEl.textContent = "";
 
-  if (!name) { errEl.textContent = "कृपया अपना नाम लिखें"; return; }
-  if (!/^[6-9]\d{9}$/.test(phone)) { errEl.textContent = "कृपया सही 10 अंकों का phone number डालें"; return; }
-  if (!address) { errEl.textContent = "कृपया delivery address लिखें"; return; }
+  // Premium Validations with Toasts
+  if (!name) return showToast("कृपया अपना नाम लिखें!");
+  if (!/^[6-9]\d{9}$/.test(phone)) return showToast("कृपया सही 10 अंकों का मोबाइल नंबर डालें!");
+  if (!address) return showToast("कृपया पूरा डिलीवरी एड्रेस लिखें!");
 
   const btn = document.getElementById("placeOrderBtn");
   btn.disabled = true;
-  btn.textContent = "Order भेजा जा रहा है...";
+  btn.innerHTML = `<span style="opacity: 0.8">Order भेजा जा रहा है...</span>`;
 
   const orderNumber = "RD" + String(Date.now()).slice(-6);
   const totalAmount = qty * currentMenu.price;
@@ -90,10 +91,10 @@ document.getElementById("placeOrderBtn").addEventListener("click", async () => {
     document.getElementById("confirmOverlay").style.display = "block";
   } catch (e) {
     console.error("Order error:", e);
-    errEl.textContent = "Order place nahi ho paya. Dobara try karein.";
+    showToast("कुछ दिक्कत आ गई। कृपया दोबारा ट्राई करें।");
   } finally {
     btn.disabled = false;
-    btn.textContent = "Order करें — Cash on Delivery";
+    btn.textContent = "Order करें";
   }
 });
 
@@ -105,4 +106,5 @@ document.getElementById("newOrderBtn").addEventListener("click", () => {
   document.getElementById("custNote").value = "";
   qty = 1;
   updateTotal();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
