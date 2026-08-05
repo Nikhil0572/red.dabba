@@ -1,7 +1,3 @@
-// ============================================================
-// ADMIN PANEL LOGIC
-// ============================================================
-
 let currentUser = null;
 let allOrders = [];
 let ordersUnsubscribe = null;
@@ -13,8 +9,6 @@ function todayStr() {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-// ---------------- AUTH ----------------
-
 document.getElementById("loginBtn").addEventListener("click", async () => {
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
@@ -23,7 +17,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   try {
     await auth.signInWithEmailAndPassword(email, password);
   } catch (e) {
-    errEl.textContent = "Login fail hua: " + e.message;
+    errEl.textContent = "Login failed: " + e.message;
   }
 });
 
@@ -44,8 +38,7 @@ auth.onAuthStateChanged(async (user) => {
 
   const adminDoc = await db.collection("admins").doc(user.uid).get();
   if (!adminDoc.exists) {
-    document.getElementById("loginError").textContent =
-      "Ye account admin nahi hai. Firestore me 'admins' collection me apni UID se document banayein.";
+    document.getElementById("loginError").textContent = "Access Denied. You are not an admin.";
     auth.signOut();
     return;
   }
@@ -61,8 +54,6 @@ auth.onAuthStateChanged(async (user) => {
   await loadMenuIntoForm();
 });
 
-// ---------------- TABS ----------------
-
 function initTabs() {
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -73,8 +64,6 @@ function initTabs() {
     });
   });
 }
-
-// ---------------- LIVE ORDERS ----------------
 
 function listenToOrders() {
   const listEl = document.getElementById("ordersList");
@@ -87,7 +76,7 @@ function listenToOrders() {
       updateStats();
     }, (err) => {
       console.error("Orders listen error:", err);
-      listEl.textContent = "Orders load nahi ho paye. Firestore rules check karein.";
+      listEl.textContent = "Failed to load orders. Check Firestore rules.";
     });
 }
 
@@ -99,7 +88,7 @@ function renderOrders() {
   const filtered = filter ? allOrders.filter((o) => o.status === filter) : allOrders;
 
   if (!filtered.length) {
-    listEl.innerHTML = `<div class="loader">कोई order नहीं मिला</div>`;
+    listEl.innerHTML = `<div class="loader">No orders found</div>`;
     return;
   }
 
@@ -135,7 +124,7 @@ function renderOrders() {
       try {
         await db.collection("orders").doc(orderId).update({ status: newStatus });
       } catch (err) {
-        alert("Status update nahi ho paya: " + err.message);
+        alert("Failed to update status: " + err.message);
       }
     });
   });
@@ -146,8 +135,6 @@ function escapeHTML(str) {
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
   }[m]));
 }
-
-// ---------------- STATS ----------------
 
 function updateStats() {
   const today = todayStr();
@@ -165,8 +152,6 @@ function updateStats() {
   document.getElementById("statRevenue").textContent = `₹${revenue}`;
 }
 
-// ---------------- MENU MANAGEMENT ----------------
-
 async function loadMenuIntoForm() {
   try {
     const doc = await db.collection("menu").doc("today").get();
@@ -177,8 +162,8 @@ async function loadMenuIntoForm() {
       document.getElementById("menuPrice").value = d.price || 49;
       document.getElementById("menuAvailable").checked = d.available !== false;
     } else {
-      document.getElementById("menuName").value = "आज की थाली";
-      document.getElementById("menuDesc").value = "दाल, सब्ज़ी, चावल, रोटी और अचार";
+      document.getElementById("menuName").value = "Today's Thali";
+      document.getElementById("menuDesc").value = "Dal, Veg Curry, Rice, Roti & Pickle";
       document.getElementById("menuPrice").value = 49;
     }
   } catch (e) {
@@ -195,10 +180,10 @@ document.getElementById("saveMenuBtn").addEventListener("click", async () => {
 
   try {
     await db.collection("menu").doc("today").set({ name, description, price, available }, { merge: true });
-    msgEl.textContent = "Menu save ho gaya ✓";
+    msgEl.textContent = "Menu saved successfully ✓";
     setTimeout(() => (msgEl.textContent = ""), 3000);
   } catch (e) {
     msgEl.style.color = "#c0392b";
-    msgEl.textContent = "Save nahi ho paya: " + e.message;
+    msgEl.textContent = "Save failed: " + e.message;
   }
 });
