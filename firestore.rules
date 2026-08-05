@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null &&
+             exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Customers (not logged in) can only CREATE an order — never read/list/edit others' orders
+    match /orders/{orderId} {
+      allow create: if request.resource.data.customerName is string
+                    && request.resource.data.phone is string
+                    && request.resource.data.status == 'Placed'
+                    && request.resource.data.totalAmount is number;
+      allow read, update: if isAdmin();
+      allow delete: if false;
+    }
+
+    // Menu (today's thali) — everyone can read, only admin can change
+    match /menu/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admin accounts — only readable by the admin themself, never writable from the app
+    // (add new admins manually from Firebase Console)
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}
