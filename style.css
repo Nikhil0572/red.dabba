@@ -23,7 +23,6 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ---------- Premium Hero Section ---------- */
 .brand-hero {
   position: relative;
   background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-deep) 100%);
@@ -50,82 +49,77 @@ body {
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-.brand-wordmark {
-  position: relative;
-  font-weight: 800;
-  font-size: 46px;
-  letter-spacing: -1px;
-}
+.brand-wordmark { position: relative; font-weight: 800; font-size: 46px; letter-spacing: -1px; }
 .word-red { color: #ffffff; }
 .word-dabba { color: var(--red); text-shadow: 0 4px 20px rgba(225,29,46,0.5); }
 .brand-tagline { color: var(--gold); font-weight: 600; font-size: 15px; margin-top: 10px; letter-spacing: 0.5px; }
 
-/* ---------- Floating Cards ---------- */
 .container { max-width: 480px; margin: -20px auto 0; padding: 0 16px 80px; position: relative; z-index: 10; }
 
-.card {
-  background: #ffffff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 24px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(0,0,0,0.03);
-}
+.card { background: #ffffff; border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 24px; margin-bottom: 20px; border: 1px solid rgba(0,0,0,0.03); }
 .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
 
-/* ---------- Menu Info ---------- */
 .menu-card { display: flex; gap: 16px; align-items: center; }
 .menu-thali-icon { width: 90px; height: 90px; flex-shrink: 0; animation: floatMenu 3s ease-in-out infinite; }
-
-@keyframes floatMenu {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
+@keyframes floatMenu { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 .menu-name { font-size: 20px; font-weight: 800; color: var(--maroon); margin-bottom: 4px; }
 .menu-desc { font-size: 13px; color: var(--text-dim); margin-bottom: 10px; line-height: 1.5; }
 .menu-price { background: var(--red); color: white; font-weight: 800; font-size: 16px; padding: 6px 16px; border-radius: 25px; display: inline-block; box-shadow: var(--shadow-lg); }
 
-/* ---------- Interactive Buttons ---------- */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 16px 24px; border: none; border-radius: 12px;
-  font-size: 16px; font-weight: 700; cursor: pointer; width: 100%;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 24px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
 .btn:active { transform: scale(0.96); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .btn-primary { background: var(--red); color: white; box-shadow: var(--shadow-lg); }
 .btn-primary:hover { background: var(--red-dark); box-shadow: 0 6px 20px rgba(225, 29, 46, 0.25); }
+.btn-secondary { background: var(--cream); color: var(--maroon); border: 1.5px solid var(--red); }
+.btn-outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.5); }
 
-/* ---------- Form Elements ---------- */
 label { font-size: 13.5px; color: var(--text-main); font-weight: 600; display: block; margin-bottom: 8px; margin-top: 16px; }
-input, textarea {
-  width: 100%; padding: 14px 16px;
-  border: 1.5px solid #eae5e5; border-radius: 12px;
-  font-size: 15px; background: #faf9f9;
-  font-family: inherit; transition: all 0.2s ease;
-}
-input:focus, textarea:focus { outline: none; border-color: var(--red); background: #fff; box-shadow: 0 0 0 4px rgba(225,29,46,0.1); }
+input, textarea, select { width: 100%; padding: 14px 16px; border: 1.5px solid #eae5e5; border-radius: 12px; font-size: 15px; background: #faf9f9; font-family: inherit; transition: all 0.2s ease; }
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--red); background: #fff; box-shadow: 0 0 0 4px rgba(225,29,46,0.1); }
 textarea { resize: vertical; min-height: 80px; }
 
-/* ---------- Qty Stepper ---------- */
 .qty-row { display: flex; align-items: center; justify-content: space-between; margin: 10px 0 20px; padding-bottom: 20px; border-bottom: 1px dashed #eae5e5; }
 .qty-stepper { display: flex; align-items: center; gap: 16px; background: #faf9f9; padding: 6px; border-radius: 25px; border: 1.5px solid #eae5e5; }
 .qty-btn { width: 36px; height: 36px; border-radius: 50%; border: none; background: white; color: var(--red); font-size: 20px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-sm); }
 .qty-btn:active { background: var(--red); color: white; }
 .qty-value { font-size: 18px; font-weight: 800; min-width: 24px; text-align: center; color: var(--maroon); }
 
-/* ---------- Total Row ---------- */
 .total-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-top: 10px; }
 .total-value { font-size: 26px; font-weight: 800; color: var(--red); }
 
-/* ---------- Toast Notification ---------- */
-.toast {
-  position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
-  background: var(--maroon); color: white; padding: 12px 24px;
-  border-radius: 30px; font-weight: 600; font-size: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 1000;
-  transition: bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
+.toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background: var(--maroon); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 1000; transition: bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); white-space: nowrap;}
 .toast.show { bottom: 30px; }
+
+.confirm-box { text-align: center; padding: 30px 16px; }
+.confirm-tick { width: 64px; height: 64px; margin: 0 auto 14px; }
+.confirm-title { font-size: 22px; font-weight: 800; color: var(--maroon); margin-bottom: 6px; }
+.confirm-order-id { display: inline-block; background: var(--cream); border: 1.5px dashed var(--red); color: var(--red-dark); font-weight: 700; font-size: 16px; padding: 10px 20px; border-radius: 12px; margin: 14px 0 20px; }
+
+.status-pill { display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+.status-Placed { background: #fff1e0; color: #a15c00; }
+.status-Preparing { background: #fff0e8; color: var(--red-dark); }
+.status-OutforDelivery { background: #e8f0ff; color: #1a4fb0; }
+.status-Delivered { background: #e5f6ea; color: #1c7c3c; }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1.5px solid #ecdede; overflow-x: auto; }
+.tab-btn { padding: 10px 16px; background: none; border: none; font-size: 14px; font-weight: 700; color: #a58f8f; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+.tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+.order-card { border: 1.5px solid #f0e4e4; border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+.order-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.order-id { font-size: 12px; color: #a58f8f; font-weight: 600; }
+.order-name { font-size: 15px; font-weight: 700; color: var(--maroon); margin-top: 2px; }
+.order-meta { font-size: 12.5px; color: #6b5a5a; line-height: 1.5; margin: 6px 0; }
+.order-amount { font-size: 16px; font-weight: 800; color: var(--red); }
+.status-select { margin-top: 10px; font-weight: 700; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.stat-box { background: white; border-radius: 12px; padding: 14px 10px; text-align: center; box-shadow: var(--shadow-sm); }
+.stat-num { font-size: 22px; font-weight: 800; color: var(--red); }
+.stat-label { font-size: 11px; color: #6b5a5a; font-weight: 600; margin-top: 2px; }
+.loader { text-align: center; padding: 30px; color: #a58f8f; font-size: 13.5px; }
+.topbar-admin { background: var(--maroon); color: white; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+.topbar-admin h1 { font-size: 16px; margin: 0; font-weight: 700; }
+.topbar-admin .sub { font-size: 11.5px; color: var(--text-dim); }
+.warn-note { background: #fff4e5; border: 1px solid #f4d59b; color: #8a5a12; padding: 10px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 14px; line-height: 1.5; }
