@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,6 @@
 </div>
 
 <div class="container" style="padding-top:20px;">
-
   <!-- LOGIN -->
   <div class="card" id="loginView">
     <h3 style="margin-top:0;color:var(--maroon);">Admin Login</h3>
@@ -32,27 +31,26 @@
 
   <!-- MAIN -->
   <div id="appView" style="display:none;">
-
     <div class="stat-grid">
-      <div class="stat-box"><div class="stat-num" id="statToday">0</div><div class="stat-label">आज के Orders</div></div>
+      <div class="stat-box"><div class="stat-num" id="statToday">0</div><div class="stat-label">Today's Orders</div></div>
       <div class="stat-box"><div class="stat-num" id="statPending">0</div><div class="stat-label">Pending</div></div>
-      <div class="stat-box"><div class="stat-num" id="statRevenue">₹0</div><div class="stat-label">आज की कमाई</div></div>
+      <div class="stat-box"><div class="stat-num" id="statRevenue">₹0</div><div class="stat-label">Revenue</div></div>
     </div>
 
     <div class="tabs">
-      <button class="tab-btn active" data-tab="ordersTab">Orders</button>
-      <button class="tab-btn" data-tab="menuTab">आज का Menu</button>
+      <button class="tab-btn active" data-tab="ordersTab">Live Orders</button>
+      <button class="tab-btn" data-tab="menuTab">Menu Settings</button>
     </div>
 
     <!-- ORDERS TAB -->
     <div class="tab-content" id="ordersTab">
       <div class="card" style="padding:14px;">
         <select id="statusFilter" style="margin:0;">
-          <option value="">सभी Orders</option>
-          <option value="Placed">सिर्फ Placed</option>
-          <option value="Preparing">सिर्फ Preparing</option>
-          <option value="Out for Delivery">सिर्फ Out for Delivery</option>
-          <option value="Delivered">सिर्फ Delivered</option>
+          <option value="">All Orders</option>
+          <option value="Placed">Placed Only</option>
+          <option value="Preparing">Preparing Only</option>
+          <option value="Out for Delivery">Out for Delivery Only</option>
+          <option value="Delivered">Delivered Only</option>
         </select>
       </div>
       <div id="ordersList" class="loader">Loading orders...</div>
@@ -61,22 +59,21 @@
     <!-- MENU TAB -->
     <div class="tab-content" id="menuTab" style="display:none;">
       <div class="card">
-        <h3 style="margin-top:0;color:var(--maroon);font-size:15px;">आज की Thali सेट करें</h3>
-        <label>Thali/Tiffin का नाम</label>
-        <input type="text" id="menuName" placeholder="जैसे: आज की स्पेशल थाली">
-        <label>Description (क्या-क्या है)</label>
-        <textarea id="menuDesc" placeholder="जैसे: दाल, आलू-गोभी, चावल, 3 रोटी, अचार, पापड़"></textarea>
+        <h3 style="margin-top:0;color:var(--maroon);font-size:15px;">Set Today's Menu</h3>
+        <label>Thali/Item Name</label>
+        <input type="text" id="menuName" placeholder="e.g. Special Thali">
+        <label>Description</label>
+        <textarea id="menuDesc" placeholder="e.g. Dal, Rice, 3 Roti, Sabzi"></textarea>
         <label>Price (₹)</label>
         <input type="number" id="menuPrice" value="49">
         <label style="display:flex;align-items:center;gap:8px;margin-top:14px;">
           <input type="checkbox" id="menuAvailable" style="width:auto;" checked>
-          आज सेवा चालू है (Available for order)
+          Service is active (Available for orders)
         </label>
-        <button class="btn btn-primary" id="saveMenuBtn" style="margin-top:14px;">Menu Save करें</button>
+        <button class="btn btn-primary" id="saveMenuBtn" style="margin-top:14px;">Save Menu</button>
         <div id="menuSaveMsg" style="color:#1c7c3c;font-size:13px;margin-top:8px;"></div>
       </div>
     </div>
-
   </div>
 </div>
 
