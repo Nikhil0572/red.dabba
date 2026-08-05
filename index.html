@@ -1,30 +1,73 @@
-<!-- Baaki purana HTML head tag yahan rakhein -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RedDabba — Full Meal Thali at ₹49</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2B0507">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
 
 <div class="brand-hero">
-  <!-- Same SVG background code -->
+  <svg class="thali-bg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="plateGrad" cx="35%" cy="30%" r="75%">
+        <stop offset="0%" stop-color="#f2f4f6"/>
+        <stop offset="60%" stop-color="#cfd4da"/>
+        <stop offset="100%" stop-color="#9aa1ab"/>
+      </radialGradient>
+      <radialGradient id="riceGrad" cx="40%" cy="35%" r="70%">
+        <stop offset="0%" stop-color="#fffdf6"/>
+        <stop offset="100%" stop-color="#f1e6c8"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="96" fill="url(#plateGrad)"/>
+    <circle cx="100" cy="100" r="96" fill="none" stroke="#7d838d" stroke-width="1.5"/>
+    <circle cx="35" cy="42" r="20" fill="#F2A93B"/>
+    <circle cx="35" cy="42" r="20" fill="none" stroke="#c98a1f" stroke-width="1.5"/>
+    <circle cx="163" cy="45" r="20" fill="#4C9A2A"/>
+    <circle cx="163" cy="45" r="20" fill="none" stroke="#33711b" stroke-width="1.5"/>
+    <circle cx="168" cy="150" r="20" fill="#E11D2E"/>
+    <circle cx="168" cy="150" r="20" fill="none" stroke="#a01523" stroke-width="1.5"/>
+    <circle cx="32" cy="153" r="20" fill="#F7ECD0"/>
+    <circle cx="32" cy="153" r="20" fill="none" stroke="#d8c79a" stroke-width="1.5"/>
+    <circle cx="100" cy="100" r="42" fill="url(#riceGrad)"/>
+    <circle cx="100" cy="100" r="42" fill="none" stroke="#d8c79a" stroke-width="1.5"/>
+  </svg>
   <div class="brand-wordmark"><span class="word-red">Red</span><span class="word-dabba">Dabba</span></div>
-  <div class="brand-tagline">₹49 में भरपेट थाली</div>
-  <div class="brand-sub" style="color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 6px;">घर जैसा खाना • रोज़ ताज़ा • तुरंत डिलीवरी</div>
+  <div class="brand-tagline">Full Meal Thali at ₹49</div>
+  <div class="brand-sub" style="color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 6px;">Homestyle Food • Fresh Daily • Fast Delivery</div>
 </div>
 
 <div class="container">
   <div class="card menu-card" id="menuCard">
-    <!-- Same SVG Menu Icon -->
+    <svg class="menu-thali-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="96" fill="#e2e6ea"/>
+      <circle cx="100" cy="100" r="96" fill="none" stroke="#9aa1ab" stroke-width="2"/>
+      <circle cx="35" cy="42" r="22" fill="#F2A93B"/>
+      <circle cx="163" cy="45" r="22" fill="#4C9A2A"/>
+      <circle cx="168" cy="150" r="22" fill="#E11D2E"/>
+      <circle cx="32" cy="153" r="22" fill="#F7ECD0"/>
+      <circle cx="100" cy="100" r="44" fill="#f7f0dc"/>
+    </svg>
     <div class="menu-info">
-      <div class="menu-name" id="menuName">आज की थाली</div>
+      <div class="menu-name" id="menuName">Today's Thali</div>
       <div class="menu-desc" id="menuDesc">Loading deliciousness...</div>
       <div class="menu-price" id="menuPrice">₹49</div>
     </div>
   </div>
 
   <div id="unavailableNotice" style="display:none;" class="card warn-note">
-    माफ़ कीजिए, आज सेवा बंद है। कृपया कल दोबारा कोशिश करें।
+    Sorry, we are closed today. Please try again tomorrow.
   </div>
 
   <div class="card" id="orderCard">
     <div class="qty-row">
-      <span class="qty-label" style="font-weight: 700; font-size: 15px; color: var(--maroon);">कितनी थाली चाहिए?</span>
+      <span class="qty-label" style="font-weight: 700; font-size: 15px; color: var(--maroon);">Quantity?</span>
       <div class="qty-stepper">
         <button class="qty-btn" id="qtyMinus">−</button>
         <span class="qty-value" id="qtyValue">1</span>
@@ -32,28 +75,52 @@
       </div>
     </div>
 
-    <label>आपका नाम</label>
-    <input type="text" id="custName" placeholder="जैसे: Ramesh Kumar" autocomplete="name">
+    <label>Your Name</label>
+    <input type="text" id="custName" placeholder="e.g. Ramesh Kumar" autocomplete="name">
 
     <label>Phone Number</label>
     <input type="tel" id="custPhone" placeholder="98XXXXXXXX" maxlength="10" autocomplete="tel">
 
     <label>Delivery Address</label>
-    <textarea id="custAddress" placeholder="पूरा पता लिखें (मकान नं, गली, लैंडमार्क)"></textarea>
+    <textarea id="custAddress" placeholder="Complete address (House No, Street, Landmark)"></textarea>
 
-    <label>कोई खास निर्देश? (optional)</label>
-    <input type="text" id="custNote" placeholder="जैसे: कम तीखा, जल्दी चाहिए">
+    <label>Special Instructions? (Optional)</label>
+    <input type="text" id="custNote" placeholder="e.g. Less spicy, Deliver fast">
 
     <div class="total-row">
-      <span class="total-label" style="font-size: 15px; font-weight: 600; color: var(--text-dim);">कुल राशि <br><small style="color: var(--red);">Cash on Delivery</small></span>
+      <span class="total-label" style="font-size: 15px; font-weight: 600; color: var(--text-dim);">Total Amount <br><small style="color: var(--red);">Cash on Delivery</small></span>
       <span class="total-value" id="totalValue">₹49</span>
     </div>
 
-    <button class="btn btn-primary" id="placeOrderBtn">Order करें</button>
+    <button class="btn btn-primary" id="placeOrderBtn">Place Order</button>
   </div>
 </div>
 
-<!-- Toast Notification Element -->
 <div id="toast" class="toast">Message here</div>
 
-<!-- Confirm overlay same rahega -->
+<div id="confirmOverlay" style="display:none;position:fixed;inset:0;background:var(--cream);z-index:100;overflow-y:auto;">
+  <div class="brand-hero" style="padding:26px 20px;">
+    <div class="brand-wordmark" style="font-size:30px;"><span class="word-red">Red</span><span class="word-dabba">Dabba</span></div>
+  </div>
+  <div class="container">
+    <div class="card confirm-box">
+      <svg class="confirm-tick" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="30" fill="#e5f6ea"/>
+        <path d="M20 33 L28 41 L45 23" stroke="#1c7c3c" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="confirm-title">Order Confirmed!</div>
+      <div style="color:#6b5a5a;font-size:13.5px;">Your food will be prepared and out for delivery soon.</div>
+      <div class="confirm-order-id" id="confirmOrderId">RD000000</div>
+      <div style="font-size:13px;color:#6b5a5a;margin-bottom:18px;">Payment: Cash on Delivery</div>
+      <button class="btn btn-secondary" id="newOrderBtn">Place Another Order</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="customer.js"></script>
+</body>
+</html>
